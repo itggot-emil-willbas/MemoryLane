@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .b0,.b1,.b2,.b3 {
+            padding:50px;
+            background-color:lightgrey;
+            border:1px black solid;
+        width: 48%;
+        margin-right:5px;
+        margin-top:5px;
+    }
+    .color0 {
+        background-color:pink;
+    }
+    .color1 {
+        background-color:purple;
+    }
+    .color2 {
+        background-color:lime;
+    }
+    .color3 {
+        background-color:cornflowerblue;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="btn-primary" id="btn">Start</button>
+        <a href="#">Klicka här för tusan!</a>
+        <hr>
+        <button class="b0"></button>
+        <button class="b1"></button>
+        <button class="b2"></button>
+        <button class="b3"></button>
+        
+        
+
+
+
+    </div>
+    <script type="text/javascript">
+        var arrayMedSiffror = [0,1,2,3];
+        var sequenceAmount = 1;
+
+        var btn = document.getElementById("btn")
+        btn.addEventListener('click',function(){start();})
+
+
+
+            function start() {
+                //alert(sequenceAmount)
+                //blandaArray()
+                showColorSequence(arrayMedSiffror)
+             };
+               
+             
+             var i = 0
+
+
+        function showColorSequence(numbers) {
+            
+            
+                number = numbers[i];
+            //     //hitta knapp med nummer
+                var element = document.querySelector(".b" + number)
+            //     //ändra class i 
+                 element.classList.add("color" + number);
+
+            
+            setTimeout(function(){
+                var element = document.querySelector(".b" + number)
+                element.classList.remove("color" + number);
+                i++;
+                if (i < numbers.length){
+                    showColorSequence(arrayMedSiffror)
+                }else{
+                    i = 0;
+                    
+                }
+            },3000)
+        }
+
+            
+    </script>
+</body>
+</html>
