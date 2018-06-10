@@ -33,12 +33,12 @@
 <body>
     <div class="container">
         <button class="btn-primary" id="btn">Start</button>
-        <a href="#">Klicka här för tusan!</a>
+        <a href="#">Klickat här för tusan!</a>
         <hr>
-        <button class="b0"></button>
-        <button class="b1"></button>
-        <button class="b2"></button>
-        <button class="b3"></button>
+        <button class="b0" onclick="gameClick(this)"></button>
+        <button class="b1" onclick="gameClick(this)"></button>
+        <button class="b2" onclick="gameClick(this)"></button>
+        <button class="b3" onclick="gameClick(this)"></button>
         
         
 
@@ -47,30 +47,29 @@
     </div>
     <script type="text/javascript">
         var arrayMedSiffror = [0,1,2,3];
+        var shuffledArray;
         var sequenceAmount = 1;
+        var facitTime = 1000;
+        var startReady = false; //Set to true on restart
+        var i = 0;
 
         var btn = document.getElementById("btn")
         btn.addEventListener('click',function(){start();})
 
-
-
-            function start() {
-                //alert(sequenceAmount)
-                //blandaArray()
-                showColorSequence(arrayMedSiffror)
-             };
-               
-             
-             var i = 0
-
+        function start() {
+            //alert(sequenceAmount)
+            //blandaArray()
+            shuffledArray = shuffle(arrayMedSiffror);
+            showColorSequence(shuffledArray)
+            };
 
         function showColorSequence(numbers) {
-            
-            
+                //Prevent double-clicks  
+                document.getElementById("btn").disabled = true;
                 number = numbers[i];
-            //     //hitta knapp med nummer
+                 //hitta knapp med nummer
                 var element = document.querySelector(".b" + number)
-            //     //ändra class i 
+                 //ändra class i 
                  element.classList.add("color" + number);
 
             
@@ -82,12 +81,58 @@
                     showColorSequence(arrayMedSiffror)
                 }else{
                     i = 0;
-                    
-                }
-            },3000)
+                    //Gör knappen klickbar igen
+                    document.getElementById("btn").disabled = false;
+                    startReady = true;
+                };
+            },facitTime)
         }
 
-            
+        function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
+
+         //jag klickar
+         //check om först i Shuffledarray
+         //if true -> fortsätt
+         //if false -> starta om
+
+         function gameClick(obj) {
+             //alert(obj.className);
+             if (startReady){
+                var numberCheck = obj.className.substring(1)
+                parseInt(numberCheck);
+                console.log(numberCheck)
+                if (numberCheck == shuffledArray[0]) {
+                    shuffledArray.shift();
+                    console.log(shuffledArray)
+                    if (shuffledArray.length == 0){
+                        console.log("Game over! Great work!")
+                        if (confirm("Great work! Start over?")){
+                            window.location.reload();//Vill inte detta :)
+                        }
+                    }
+
+                }else{
+                    //start over if array NOT is empty
+                    if (shuffledArray.length > 0){
+                    console.log("Wrong number")
+                    }else{
+                        console.log("Game over! Great work!")
+                    }
+                }
+                
+             }
+         }
+
+
     </script>
 </body>
 </html>
