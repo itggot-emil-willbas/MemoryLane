@@ -16,16 +16,16 @@
         margin-right:5px;
         margin-top:5px;
     }
-    .color0 {
+    .color0, .b0:active {
         background-color:pink;
     }
-    .color1 {
+    .color1, .b1:active {
         background-color:purple;
     }
-    .color2 {
+    .color2, .b2:active {
         background-color:lime;
     }
-    .color3 {
+    .color3, .b3:active {
         background-color:cornflowerblue;
     }
     </style>
@@ -46,7 +46,7 @@
 
     </div>
     <script type="text/javascript">
-        var arrayMedSiffror = [0,1,2,3];
+        var arrayMedSiffror = [0,1,2,3,0];
         var shuffledArray;
         var sequenceAmount = 1;
         var facitTime = 1000;
@@ -74,6 +74,8 @@
 
             
             setTimeout(function(){
+                
+
                 var element = document.querySelector(".b" + number)
                 element.classList.remove("color" + number);
                 i++;
