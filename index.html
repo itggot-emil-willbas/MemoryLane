@@ -28,6 +28,19 @@
     .color3, .b3:active {
         background-color:cornflowerblue;
     }
+    .greenbg {
+        background-color:lightgreen;
+        transition: 0.3s ease-out;
+    }
+    .redbg {
+        background-color:lightpink;
+        transition: 0.3s ease-out;
+    }
+    .whitebg {
+        background-color:white;
+        transition: 0.3s ease-out;
+ 
+    }
     </style>
 </head>
 <body>
@@ -59,7 +72,9 @@
         function start() {
             //alert(sequenceAmount)
             //blandaArray()
-            shuffledArray = shuffle(arrayMedSiffror);
+            //shuffledArray = shuffle(arrayMedSiffror);
+            var copyArray = arrayMedSiffror.slice();
+            shuffledArray = shuffle(copyArray);
             showColorSequence(shuffledArray)
             };
 
@@ -80,26 +95,19 @@
                 element.classList.remove("color" + number);
                 i++;
                 if (i < numbers.length){
-                    showColorSequence(arrayMedSiffror)
+                    showColorSequence(shuffledArray)
                 }else{
                     i = 0;
                     //Gör knappen klickbar igen
                     document.getElementById("btn").disabled = false;
                     startReady = true;
+                    
+
                 };
             },facitTime)
         }
 
-        function shuffle(a) {
-    var j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
-    }
-    return a;
-}
+        
 
          //jag klickar
          //check om först i Shuffledarray
@@ -112,20 +120,37 @@
                 var numberCheck = obj.className.substring(1)
                 parseInt(numberCheck);
                 console.log(numberCheck)
-                if (numberCheck == shuffledArray[0]) {
+                if (numberCheck == shuffledArray[0]){
+                    //Rätt knapp!
+                    var element = document.querySelector("body")
+                    greenFlash();
+                   /* setTimeout(function(){
+                        element.classList.remove("greenbg");
+                    },1500) ;*/
                     shuffledArray.shift();
-                    console.log(shuffledArray)
+                    console.log("Shuffled array: " + shuffledArray)
+                    console.log("ArrayMedSiffror: " + arrayMedSiffror)
                     if (shuffledArray.length == 0){
+                        //Spelet slut!
                         console.log("Game over! Great work!")
-                        if (confirm("Great work! Start over?")){
-                            window.location.reload();//Vill inte detta :)
+                        var newNumber = Math.floor((Math.random() * 3));
+                        arrayMedSiffror.push(newNumber);
+
+                        if (confirm("Great work! Start over on level" + arrayMedSiffror.length + "?")){
+                            //window.location.reload();//Vill inte detta :)
+                            var element = document.querySelector("body")
+                            element.classList.remove("greenbg");
+                            startready = false;
+                            
                         }
                     }
 
                 }else{
                     //start over if array NOT is empty
                     if (shuffledArray.length > 0){
-                    console.log("Wrong number")
+                        redFlash();
+                        console.log("Wrong number")
+                    //start over?
                     }else{
                         console.log("Game over! Great work!")
                     }
@@ -133,8 +158,37 @@
                 
              }
          }
+         
+         function greenFlash() {
+            var element = document.querySelector("body")
+            element.classList.remove("whitebg");
+            element.classList.add("greenbg");
+            setTimeout(function(){
+                element.classList.add("whitebg");
+                element.classList.remove("greenbg");
+            },300);
+         }
 
+         function redFlash() {
+            var element = document.querySelector("body")
+            element.classList.remove("whitebg");
+            element.classList.add("redbg");
+            setTimeout(function(){
+                element.classList.add("whitebg");
+                element.classList.remove("redbg");
+            },300);
+         }
 
+         function shuffle(a) {
+            var j, x, i;
+            for (i = a.length - 1; i > 0; i--) {
+                j = Math.floor(Math.random() * (i + 1));
+                x = a[i];
+                a[i] = a[j];
+                a[j] = x;
+            }
+            return a;
+        }
     </script>
 </body>
 </html>
