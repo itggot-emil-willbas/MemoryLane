@@ -12,7 +12,7 @@
             padding:50px;
             background-color:lightgrey;
             border:1px black solid;
-        width: 30vw;
+        width: 40%;
         margin-right:5px;
         margin-top:5px;
     }
@@ -65,14 +65,43 @@
         var facitTime = 1000;
         var startReady = false; //Set to true on restart
         var i = 0;
+        var screenIsTouch = false
 
         var btn = document.getElementById("btn")
         btn.addEventListener('click',function(){start();})
+
+        window.addEventListener('touchstart',function(){
+            screenIsTouch = true;
+            console.log("screenIsTouch!");
+        })  
+
+        function checkIfMobile() {
+            //run this on start
+            //kolla om touch har gjorts
+            if (screenIsTouch == true) {
+                //hitta element med eventlistener 'onmouseup'
+                var list = document.querySelectorAll('.b1, .b2, .b3, .b0');
+                console.log(list);
+                var i;
+                for (i = 0; i < list.length; i++) {
+                    //replace onmousedown with ontouch
+                    list[i].removeAttribute("onmousedown");
+                    var att = document.createAttribute("ontouch");
+                    att.value = "gameClick(this)";
+                    list[i].setAttributeNode(att);
+                    }
+                
+                    
+                
+            }
+           return;
+        }
 
         function start() {
             //alert(sequenceAmount)
             //blandaArray()
             //shuffledArray = shuffle(arrayMedSiffror);
+            checkIfMobile();
             var copyArray = arrayMedSiffror.slice();
             shuffledArray = shuffle(copyArray);
             showColorSequence(shuffledArray)
