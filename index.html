@@ -86,7 +86,7 @@
                 for (i = 0; i < list.length; i++) {
                     //replace onmousedown with ontouch
                     list[i].removeAttribute("onmousedown");
-                    var att = document.createAttribute("ontouch");
+                    var att = document.createAttribute("ontouchstart");
                     att.value = "gameClick(this)";
                     list[i].setAttributeNode(att);
                     }
